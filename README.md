@@ -3,10 +3,11 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/yourusername/opencode-auto-entire)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![OpenCode](https://img.shields.io/badge/OpenCode-plugin-orange.svg)](https://opencode.ai)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-MCP%20Server-blue.svg)](https://docs.anthropic.com)
 
-> 🧠 Automatic Entire CLI monitoring for OpenCode - Never lose session context again
+> 🧠 Automatic Entire CLI monitoring for OpenCode & Claude Code - Never lose session context again
 
-OpenCode Auto-Entire is a plugin that automatically checks if [Entire CLI](https://github.com/entireio/cli) is enabled when you start an OpenCode session. If not, it prompts you with clear instructions to fix it. It also monitors your complete memory management stack including Claude-Mem and RTK.
+OpenCode Auto-Entire is a plugin and MCP server that automatically checks if [Entire CLI](https://github.com/entireio/cli) is enabled when you start an AI coding session. If not, it prompts you with clear instructions to fix it. It also monitors your complete memory management stack including Claude-Mem and RTK.
 
 ## Why This Exists
 
@@ -20,10 +21,11 @@ With OpenCode Auto-Entire:
 - ✅ Prompts with actionable fix instructions
 - ✅ Monitors full memory stack (Entire + Claude-Mem + RTK)
 - ✅ Configurable behavior (prompt / auto-init / silent)
+- ✅ Works with **OpenCode** and **Claude Code**
 
 ## Quick Start
 
-### macOS / Linux
+### For OpenCode
 
 ```bash
 # Clone the repository
@@ -32,6 +34,17 @@ cd opencode-auto-entire
 
 # Run the installer
 ./scripts/install.sh
+```
+
+### For Claude Code
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/opencode-auto-entire.git
+cd opencode-auto-entire
+
+# Run the Claude Code installer
+./scripts/install-claude.sh
 ```
 
 ### Windows (PowerShell)
@@ -57,37 +70,64 @@ cd opencode-auto-entire
    # See: https://github.com/entireio/cli#installation
    ```
 
-2. **Copy plugin to OpenCode:**
-   ```bash
-   mkdir -p ~/.config/opencode/plugins/
-   cp -r . ~/.config/opencode/plugins/opencode-auto-entire
-   cd ~/.config/opencode/plugins/opencode-auto-entire
-   npm install
-   ```
+2. **Copy plugin:**
+    ```bash
+    # For OpenCode
+    mkdir -p ~/.config/opencode/plugins/
+    cp -r . ~/.config/opencode/plugins/opencode-auto-entire
+    cd ~/.config/opencode/plugins/opencode-auto-entire
+    npm install
 
-3. **Add to OpenCode config** (`~/.config/opencode/opencode.json`):
-   ```json
-   {
-     "plugin": [
-       "file:///Users/YOUR_USERNAME/.config/opencode/plugins/opencode-auto-entire/src/plugin.ts"
-     ]
-   }
-   ```
+    # For Claude Code
+    mkdir -p ~/.claude/plugins/
+    cp -r . ~/.claude/plugins/opencode-auto-entire
+    cd ~/.claude/plugins/opencode-auto-entire
+    npm install
+    ```
 
-4. **Restart OpenCode**
+3. **Configure:**
+    ```bash
+    # For OpenCode - add to ~/.config/opencode/opencode.json
+    {
+      "plugin": [
+        "file:///Users/YOUR_USERNAME/.config/opencode/plugins/opencode-auto-entire/src/plugin.ts"
+      ]
+    }
+
+    # For Claude Code - add MCP server to ~/.claude/settings.json
+    {
+      "mcpServers": {
+        "auto-entire": {
+          "command": "node",
+          "args": ["/Users/YOUR_USERNAME/.claude/plugins/opencode-auto-entire/src/claude-code.ts"]
+        }
+      }
+    }
+    ```
+
+4. **Restart your AI coding tool** (OpenCode or Claude Code)
 
 ## What It Does
 
 On every session start in a git repository:
 
-1. ✅ Checks if **Entire CLI** is enabled (looks for `.entire/settings.json`)
-2. ✅ Checks if **Claude-Mem** is installed and active
-3. ✅ Checks if **RTK** is installed and gets efficiency stats
-4. ✅ Prompts you with clear instructions if anything is missing
+**OpenCode:**
+1. ✅ Automatically checks for Entire CLI on session start
+2. ✅ Displays memory stack status (Entire + Claude-Mem + RTK)
+3. ✅ Prompts with instructions if Entire is not enabled
+4. ✅ Supports auto-init mode for automatic setup
+
+**Claude Code:**
+1. ✅ Provides MCP tools for memory stack checks
+2. ✅ Use "Check memory stack with auto-entire" to see status
+3. ✅ Use "Enable Entire with auto-entire" to auto-initialize
+4. ✅ Manual tools available anytime via Claude Code's MCP interface
 
 ## Configuration
 
-Create `~/.config/opencode/entire-check.json`:
+Configuration works for both OpenCode and Claude Code:
+
+Create `~/.config/opencode/entire-check.json` or `~/.claude/entire-check.json`:
 
 ```json
 {
@@ -138,6 +178,8 @@ Only logs to console, no UI notification.
 
 ## Usage
 
+### For OpenCode
+
 After installation, simply start OpenCode in any git repository:
 
 ```bash
@@ -147,16 +189,29 @@ opencode
 
 You'll see the memory stack check at session start.
 
-### When Entire is Not Enabled
-
-The plugin will prompt you. To fix:
-
+When Entire is Not Enabled:
 ```bash
 cd your-project
 entire enable --strategy auto-commit
 ```
 
-Then restart OpenCode.
+### For Claude Code
+
+After installation, start Claude Code in any git repository:
+
+```bash
+cd your-project
+claude
+```
+
+The MCP server provides two tools:
+- **Check memory stack with auto-entire** - Shows status of Entire, Claude-Mem, and RTK
+- **Enable Entire with auto-entire** - Auto-initializes Entire in current directory
+
+When Entire is Not Enabled:
+You can either:
+1. Enable manually: `entire enable --strategy auto-commit`
+2. Use the MCP tool: "Enable Entire with auto-entire"
 
 ### When Entire is Enabled
 
@@ -173,25 +228,16 @@ All systems operational.
 
 ## Platform Support
 
-| Platform | Installation | Entire CLI |
-|----------|--------------|------------|
-| macOS | ✅ One-command install | ✅ Homebrew |
-| Linux | ✅ One-command install | ✅ Binary releases |
-| Windows | ✅ PowerShell script | ⚠️ Manual install |
-| WSL | ✅ Use Linux script | ✅ Binary releases |
-
-## Claude Code Installation
-
-This plugin also works with Claude Code. See [docs/CLAUDE_CODE.md](docs/CLAUDE_CODE.md) for detailed instructions.
-
-Quick steps:
-1. Install Entire CLI
-2. Copy plugin to `~/.claude/plugins/`
-3. Configure in `~/.claude/settings.json`
-4. Restart Claude Code
+| Platform | OpenCode Install | Claude Code Install | Entire CLI |
+|----------|------------------|---------------------|------------|
+| macOS | ✅ One-command install | ✅ One-command install | ✅ Homebrew |
+| Linux | ✅ One-command install | ✅ One-command install | ✅ Binary releases |
+| Windows | ✅ PowerShell script | ❌ Coming soon | ⚠️ Manual install |
+| WSL | ✅ Use Linux script | ✅ Use Linux script | ✅ Binary releases |
 
 ## Architecture
 
+**OpenCode Plugin:**
 ```
 Session Start
     │
@@ -201,34 +247,65 @@ Session Start
     │       └──► RTK installed? ──► ✅ Continue / ❌ Note
 ```
 
+**Claude Code MCP Server:**
+```
+Claude Code
+    │
+    ├──► MCP Server (auto-entire) ──► Provides tools
+    │       ├──► check_memory_stack ──► Check status
+    │       └──► enable_entire ──► Auto-initialize
+    │
+    └──► Tool invocation ──► On-demand checks
+```
+
 ## Requirements
 
-- OpenCode with plugin support
+- **OpenCode** with plugin support OR **Claude Code** with MCP support
 - Node.js 18+ and npm
 - Git (for repository detection)
 - Optional: Entire CLI (will be prompted to install if missing)
+- Optional: @modelcontextprotocol/sdk (for Claude Code)
 
 ## Troubleshooting
 
 ### Plugin Not Activating
 
+**For OpenCode:**
 1. Verify plugin path in `opencode.json`:
-   ```bash
-   cat ~/.config/opencode/opencode.json
-   ```
+    ```bash
+    cat ~/.config/opencode/opencode.json
+    ```
 
 2. Check that files exist:
-   ```bash
-   ls ~/.config/opencode/plugins/opencode-auto-entire/src/
-   ```
+    ```bash
+    ls ~/.config/opencode/plugins/opencode-auto-entire/src/
+    ```
 
 3. Restart OpenCode completely
+
+**For Claude Code:**
+1. Verify MCP server configuration in `settings.json`:
+    ```bash
+    cat ~/.claude/settings.json
+    ```
+
+2. Check that files exist:
+    ```bash
+    ls ~/.claude/plugins/opencode-auto-entire/src/
+    ```
+
+3. Restart Claude Code completely
 
 ### "Cannot find module" Error
 
 Make sure you ran `npm install` in the plugin directory:
 ```bash
+# For OpenCode
 cd ~/.config/opencode/plugins/opencode-auto-entire
+npm install
+
+# For Claude Code
+cd ~/.claude/plugins/opencode-auto-entire
 npm install
 ```
 

@@ -1,8 +1,10 @@
 # Quick Start Guide
 
-Get OpenCode Auto-Entire running in 5 minutes.
+Get OpenCode Auto-Entire running in 5 minutes for OpenCode or Claude Code.
 
 ## macOS / Linux
+
+### For OpenCode
 
 ```bash
 # 1. Clone
@@ -16,7 +18,23 @@ cd opencode-auto-entire
 # Then open any git project and you'll see the check
 ```
 
+### For Claude Code
+
+```bash
+# 1. Clone
+git clone https://github.com/yourusername/opencode-auto-entire.git
+cd opencode-auto-entire
+
+# 2. Install Claude Code plugin
+./scripts/install-claude.sh
+
+# 3. Restart Claude Code
+# Then open any git project and you can use MCP tools
+```
+
 ## Windows
+
+### For OpenCode
 
 ```powershell
 # 1. Clone
@@ -32,31 +50,49 @@ cd opencode-auto-entire
 # 4. Restart OpenCode
 ```
 
+### For Claude Code
+
+Coming soon! For now, use manual installation instructions in [docs/CLAUDE_CODE.md](docs/CLAUDE_CODE.md)
+
 ## Verify Installation
 
+### For OpenCode
+
 1. Open a git project:
-   ```bash
-   cd ~/your-project
-   opencode
-   ```
+    ```bash
+    cd ~/your-project
+    opencode
+    ```
 
 2. You'll see one of these:
-   ```
-   # If Entire not enabled:
-   Memory Management Check
-   Entire CLI: Not initialized
-   Run: `entire enable --strategy auto-commit`
-   
-   # If Entire enabled:
-   Memory Stack Status
-   Entire CLI: Enabled
-   All systems operational.
-   ```
+    ```
+    # If Entire not enabled:
+    Memory Management Check
+    Entire CLI: Not initialized
+    Run: `entire enable --strategy auto-commit`
+
+    # If Entire enabled:
+    Memory Stack Status
+    Entire CLI: Enabled
+    All systems operational.
+    ```
 
 3. If prompted, enable Entire:
-   ```bash
-   entire enable --strategy auto-commit
-   ```
+    ```bash
+    entire enable --strategy auto-commit
+    ```
+
+### For Claude Code
+
+1. Open a git project:
+    ```bash
+    cd ~/your-project
+    claude
+    ```
+
+2. You can use the MCP tools:
+    - "Check memory stack with auto-entire" - See status
+    - "Enable Entire with auto-entire" - Initialize in current directory
 
 ## Next Steps
 

@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "auto-entire": {
+      "command": "node",
+      "args": [
+        "/Users/YOUR_USERNAME/.claude/plugins/opencode-auto-entire/src/claude-code.ts"
+      ]
+    }
+  }
+}
