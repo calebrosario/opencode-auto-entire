@@ -1,9 +1,12 @@
 {
   "name": "opencode-auto-entire",
   "version": "1.0.0",
-  "description": "OpenCode plugin that automatically checks for Entire CLI on session start and prompts to enable session persistence",
+  "description": "OpenCode plugin and Claude Code MCP server for automatic Entire CLI monitoring - Never lose session context again",
   "type": "module",
-  "main": "src/plugin.ts",
+  "main": "src/opencode/plugin.ts",
+  "bin": {
+    "auto-entire-mcp": "src/claude-code.ts"
+  },
   "files": [
     "src",
     "scripts",
@@ -15,7 +18,9 @@
   },
   "keywords": [
     "opencode",
+    "claude-code",
     "plugin",
+    "mcp-server",
     "entire",
     "session-persistence",
     "memory-management",
@@ -36,12 +41,22 @@
   },
   "homepage": "https://github.com/yourusername/opencode-auto-entire#readme",
   "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
     "@opencode-ai/plugin": "^1.0.0",
     "@types/node": "^22.0.0",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
+    "@modelcontextprotocol/sdk": ">=1.0.0",
     "@opencode-ai/plugin": ">=1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@modelcontextprotocol/sdk": {
+      "optional": true
+    },
+    "@opencode-ai/plugin": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=18.0.0"
