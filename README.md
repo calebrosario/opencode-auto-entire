@@ -67,6 +67,85 @@ claude
 
 See [docs/CLAUDE_WRAPPER.md](docs/CLAUDE_WRAPPER.md) for full documentation.
 
+## Claude Code: Wrapper Script vs MCP Server
+
+You have **two options** for using OpenCode Auto-Entire with Claude Code:
+
+### Option 1: Wrapper Script (Recommended for Automatic Checking)
+
+**What it does:**
+- ✅ Automatically checks memory stack BEFORE launching Claude Code
+- ✅ Displays status with the same formatting as OpenCode
+- ✅ Prompts you with instructions if Entire is missing
+- ✅ Supports auto-init mode to automatically enable Entire
+- ✅ Works exactly like OpenCode plugin (automatic on every launch)
+
+**Setup:**
+```bash
+# Add alias to ~/.bashrc or ~/.zshrc
+alias claude='~/.claude/plugins/opencode-auto-entire/scripts/claude-wrapper.sh'
+
+# Reload shell
+source ~/.bashrc
+
+# Now use claude normally - automatic checking!
+claude
+```
+
+**Pros:**
+- ✅ Same automatic behavior as OpenCode
+- ✅ Simple one-time setup
+- ✅ No need to remember to run tools
+- ✅ Works for both new and existing Claude Code sessions
+
+**Cons:**
+- ⚠️ Requires alias setup
+- ⚠️ Needs to add wrapper to PATH if using custom installation location
+
+### Option 2: MCP Server (For On-Demand Checks)
+
+**What it does:**
+- ✅ Provides `check_memory_stack` tool to check status anytime
+- ✅ Provides `enable_entire` tool to auto-initialize Entire
+- ✅ Tools available during Claude Code conversations
+- ✅ No automatic checking (MCP servers are passive)
+
+**Setup:**
+```bash
+# Follow installation instructions above
+# Already configured in ~/.claude/settings.json
+```
+
+**Usage in Claude Code:**
+```
+User: Check memory stack with auto-entire
+Claude: [runs tool, shows status]
+
+User: Enable Entire with auto-entire
+Claude: [auto-initializes Entire]
+```
+
+**Pros:**
+- ✅ Tools available during any conversation
+- ✅ No alias setup required
+- ✅ Standard MCP integration
+
+**Cons:**
+- ⚠️ No automatic checking (must manually invoke tools)
+- ⚠️ Must remember to run tools each time
+
+### Which Should You Choose?
+
+| Scenario | Recommended Option |
+|----------|------------------|
+| **Automatic checking wanted** | **Wrapper Script** |
+| **On-demand tools preferred** | **MCP Server** |
+| **Can't use aliases** | **MCP Server** |
+| **Standard workflow** | **MCP Server** |
+| **Same experience as OpenCode** | **Wrapper Script** |
+
+**Recommendation:** Use the **wrapper script** for automatic checking. Keep the **MCP server** installed for on-demand tools during conversations.
+
 ### Windows (PowerShell)
 
 ```powershell

@@ -36,6 +36,40 @@ After installation, you can verify everything is working:
 
 ## Next Steps
 
-- Configure the plugin to match your workflow: [Configuration](../user-guide/configuration.md)
+- Configure plugin to match your workflow: [Configuration](../user-guide/configuration.md)
 - Learn about different operation modes: [Modes](../user-guide/modes.md)
-- Set up Claude Code integration: [Claude Code Setup](../integration/claude-code.md)
+- Set up Claude Code integration: [Claude Code Setup](../CLAUDE_CODE.md)
+
+## Claude Code Installation Options
+
+For Claude Code, you have **two ways** to use OpenCode Auto-Entire:
+
+### Option 1: Wrapper Script (Recommended)
+
+The wrapper script provides automatic memory stack checking that matches OpenCode plugin behavior:
+
+- ✅ Automatically checks on every launch
+- ✅ Simple alias setup
+- ✅ Same experience as OpenCode
+
+[Learn more](../CLAUDE_WRAPPER.md)
+
+### Option 2: MCP Server
+
+The MCP server provides on-demand tools that you can invoke during conversations:
+
+- ✅ Check memory stack anytime
+- ✅ Enable Entire automatically
+- ✅ No alias setup required
+
+[Learn more](../CLAUDE_CODE.md)
+
+### Which Should You Choose?
+
+| Need | Use |
+|-------|------|
+| Automatic checking like OpenCode | **Wrapper Script** |
+| On-demand tools during conversations | **MCP Server** |
+| Can't use shell aliases | **MCP Server** |
+
+You can install **both** - use the wrapper for automatic checking and MCP tools when needed!
