@@ -199,6 +199,21 @@ create_config_example() {
 EOF
 
     print_success "Configuration created: $CONFIG_PATH"
+    print_info "You can edit this file to customize behavior"
+}
+
+suggest_wrapper() {
+    print_section "Wrapper Script Option"
+
+    print_info "For automatic memory stack checking like OpenCode:"
+    print_info ""
+    print_info "Add this alias to ~/.bashrc or ~/.zshrc:"
+    echo ""
+    echo "  ${GREEN}alias claude='~/.claude/plugins/opencode-auto-entire/scripts/claude-wrapper.sh'${NC}"
+    echo ""
+    print_info "Then reload: ${GREEN}source ~/.bashrc${NC}"
+    echo ""
+    print_info "See docs/CLAUDE_WRAPPER.md for full documentation"
 }
 
 print_completion() {
@@ -234,6 +249,7 @@ main() {
     install_plugin
     configure_mcp_server
     create_config_example
+    suggest_wrapper
     print_completion
 }
 

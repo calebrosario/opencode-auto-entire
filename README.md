@@ -45,7 +45,27 @@ cd opencode-auto-entire
 
 # Run the Claude Code installer
 ./scripts/install-claude.sh
+
+# Restart Claude Code
+# Then open any git project and you can use MCP tools
 ```
+
+**⭐ Automatic Checking (Recommended):**
+
+For the same automatic behavior as OpenCode, use the wrapper script:
+
+```bash
+# Add alias to ~/.bashrc or ~/.zshrc
+alias claude='~/.claude/plugins/opencode-auto-entire/scripts/claude-wrapper.sh'
+
+# Reload shell
+source ~/.bashrc
+
+# Use claude normally - it will automatically check your memory stack!
+claude
+```
+
+See [docs/CLAUDE_WRAPPER.md](docs/CLAUDE_WRAPPER.md) for full documentation.
 
 ### Windows (PowerShell)
 
@@ -228,12 +248,12 @@ All systems operational.
 
 ## Platform Support
 
-| Platform | OpenCode Install | Claude Code Install | Entire CLI |
-|----------|------------------|---------------------|------------|
-| macOS | ✅ One-command install | ✅ One-command install | ✅ Homebrew |
-| Linux | ✅ One-command install | ✅ One-command install | ✅ Binary releases |
-| Windows | ✅ PowerShell script | ❌ Coming soon | ⚠️ Manual install |
-| WSL | ✅ Use Linux script | ✅ Use Linux script | ✅ Binary releases |
+| Platform | OpenCode Install | Claude Code Install | Claude Code Wrapper | Entire CLI |
+|----------|------------------|---------------------|-------------------|------------|
+| macOS | ✅ One-command install | ✅ One-command install | ✅ Script + alias | ✅ Homebrew |
+| Linux | ✅ One-command install | ✅ One-command install | ✅ Script + alias | ✅ Binary releases |
+| Windows | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon | ⚠️ Manual install |
+| WSL | ✅ Use Linux script | ✅ Use Linux script | ✅ Script + alias | ✅ Binary releases |
 
 ## Architecture
 
