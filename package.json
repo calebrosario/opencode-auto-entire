@@ -1,0 +1,49 @@
+{
+  "name": "opencode-auto-entire",
+  "version": "1.0.0",
+  "description": "OpenCode plugin that automatically checks for Entire CLI on session start and prompts to enable session persistence",
+  "type": "module",
+  "main": "src/plugin.ts",
+  "files": [
+    "src",
+    "scripts",
+    "docs"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run typecheck"
+  },
+  "keywords": [
+    "opencode",
+    "plugin",
+    "entire",
+    "session-persistence",
+    "memory-management",
+    "checkpoint",
+    "recovery",
+    "ai-agents",
+    "claude",
+    "context-management"
+  ],
+  "author": "Caleb Rosario <caleb@calebrosario.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/opencode-auto-entire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/opencode-auto-entire/issues"
+  },
+  "homepage": "https://github.com/yourusername/opencode-auto-entire#readme",
+  "devDependencies": {
+    "@opencode-ai/plugin": "^1.0.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "enabled": true,
+  "mode": "prompt",
+  "checkGitRepo": true,
+  "showStatus": true
+}
