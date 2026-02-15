@@ -106,6 +106,18 @@ The plugin provides clear status indicators:
 | Enable Entire | Ask Claude: "Enable Entire with auto-entire" |
 | Tools not found | Check ~/.claude/settings.json configuration |
 
+### Cursor IDE
+
+| Scenario | Action |
+|----------|--------|
+| MCP server not connected | Verify server shows as "Connected" in Cursor Settings → MCP |
+| Tools not available | Check MCP server is listed and connected in Cursor Settings → MCP |
+| Check memory stack | Type in agent: "Check memory stack with auto-entire" |
+| Enable Entire | Type in agent: "Enable Entire with auto-entire" |
+| Agent not using tools | Restart Cursor MCP client: Settings → Advanced → MCP → Restart Client |
+
+**Key Difference**: Cursor's agent automatically uses MCP tools when helpful - no manual invocation needed!
+
 ## Next Steps
 
 - Configure plugin: [Configuration](configuration.md)

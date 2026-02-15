@@ -74,6 +74,7 @@ See [Quick Start Guide](getting-started/quickstart.md) for detailed installation
 - **[Getting Started](getting-started/README.md)** - Installation, setup, and initial configuration
 - **[Claude Code Setup](CLAUDE_CODE.md)** - Claude Code MCP server configuration and usage
 - **[Claude Code Wrapper](CLAUDE_WRAPPER.md)** - Wrapper script for automatic memory stack checking
+- **[Cursor Setup](CURSOR.md)** - Cursor IDE MCP integration
 - **[User Guide](user-guide/README.md)** - Configuration options, usage patterns, troubleshooting
 - **[Integration](integration/README.md)** - Architecture, and platform support
 - **[Development](development/README.md)** - Contributing guidelines and changelog

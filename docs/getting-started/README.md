@@ -4,11 +4,105 @@ Welcome to OpenCode Auto-Entire! This guide will help you get up and running qui
 
 ## Installation Methods
 
-Choose the installation method that works best for your platform:
+Choose the installation method that works best for your platform and preferred AI coding tool:
 
 - [Quick Start](quickstart.md) - One-command installation (macOS/Linux)
 - [Manual Installation](installation.md) - Step-by-step manual setup
 - [Setup Guide](setup.md) - Post-installation configuration
+
+## Platform-Specific Setup
+
+Choose your AI coding tool:
+
+| Platform | OpenCode | Claude Code | Cursor |
+|----------|-----------|-------------|----------|
+| **macOS** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup |
+| **Linux** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup |
+| **Windows** | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon |
+| **Setup** | `opencode.json` | `claude-code.example.json` | Settings → MCP |
+
+### For OpenCode
+
+See "Quick Start" section above.
+
+### For Claude Code
+
+See "Quick Start" section above.
+
+### For Cursor IDE
+
+Cursor IDE has **native MCP support** - no configuration files needed!
+
+1. **Install OpenCode Auto-Entire**:
+   ```bash
+   git clone https://github.com/yourusername/opencode-auto-entire.git
+   cd opencode-auto-entire
+   ./scripts/install-claude.sh
+   ```
+
+2. **Configure MCP Server in Cursor**:
+
+   **Option 1: Via Cursor UI (Recommended)**
+   
+   a. Open Cursor IDE
+   b. Press `Cmd+Shift+P` to open Command Palette
+   c. Type "MCP" to open MCP management
+   d. Click "Add New Server"
+   e. Enter configuration:
+      ```json
+      {
+        "command": "node",
+        "args": ["/Users/YOUR_USERNAME/.claude/plugins/opencode-auto-entire/src/claude-code.ts"]
+      }
+      ```
+   f. Click "Connect"
+
+   **Option 2: Via Cursor CLI**
+   
+   Use Cursor's MCP CLI commands:
+   ```bash
+   # List available MCP servers
+   agent mcp list
+   
+   # Check tools for a server
+   agent mcp list-tools <identifier>
+   
+   # Login to server
+   agent mcp login <identifier>
+   ```
+
+3. **Verify Installation**:
+   
+   In Cursor, press `Cmd+Shift+P`
+   - Type "MCP"
+   - Verify "auto-entire" server shows as "Connected"
+   - Click server to view tools
+
+4. **Done!**
+   
+   Cursor's agent will automatically use MCP tools when helpful in your conversations.
+
+   See [Cursor Setup Guide](../CURSOR.md) for detailed usage and troubleshooting.
+
+## What You'll Need
+
+Before installing, make sure you have:
+
+- **For All Platforms**:
+  - Node.js 18+ and npm
+  - Git (for repository detection)
+  - Entire CLI (will be prompted to install during setup)
+
+- **For Cursor**: Nothing extra needed - Cursor handles MCP automatically!
+
+## Next Steps
+
+After installation, learn more about using the plugin:
+
+- [Configuration Guide](../user-guide/configuration.md) - Customize plugin behavior
+- [Integration](../integration/README.md) - Architecture details
+- [Platform-Specific Setup](../platforms.md) - Platform-specific information
+- [Development](../development/README.md) - Contributing guidelines
 
 ## What You'll Need
 

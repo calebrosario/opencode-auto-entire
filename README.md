@@ -50,6 +50,51 @@ cd opencode-auto-entire
 # Then open any git project and you can use MCP tools
 ```
 
+### For Cursor IDE
+
+**✨ Cursor has native MCP support - no configuration needed!**
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/opencode-auto-entire.git
+cd opencode-auto-entire
+
+# Run the installer (includes MCP setup)
+./scripts/install-claude.sh
+```
+
+**Configure in Cursor (2 options):**
+
+**Option 1: Via Cursor UI (Recommended)**
+1. Open Cursor
+2. Press `Cmd+Shift+P`
+3. Type "MCP" to open MCP management
+4. Click "Add New Server"
+5. Enter:
+   ```json
+   {
+     "command": "node",
+     "args": ["/Users/YOUR_USERNAME/.claude/plugins/opencode-auto-entire/src/claude-code.ts"]
+   }
+   ```
+6. Click "Connect"
+
+**Option 2: Via Cursor CLI**
+```bash
+# List MCP servers
+agent mcp list
+
+# Check tools
+agent mcp list-tools auto-entire
+
+# Login (if needed)
+agent mcp login auto-entire
+```
+
+**That's it!** Cursor's agent will automatically use MCP tools when helpful.
+
+See [Cursor Setup Guide](docs/CURSOR.md) for detailed usage and troubleshooting.
+
 **⭐ Automatic Checking (Recommended):**
 
 For the same automatic behavior as OpenCode, use the wrapper script:
@@ -222,9 +267,15 @@ On every session start in a git repository:
 3. ✅ Use "Enable Entire with auto-entire" to auto-initialize
 4. ✅ Manual tools available anytime via Claude Code's MCP interface
 
+**Cursor IDE:**
+1. ✅ Native MCP support - no configuration needed!
+2. ✅ Cursor's agent automatically uses MCP tools when helpful in conversations
+3. ✅ Provides same memory stack checking as OpenCode and Claude Code
+4. ✅ Zero setup complexity - just install and connect
+
 ## Configuration
 
-Configuration works for both OpenCode and Claude Code:
+Configuration works for both OpenCode, Claude Code, and Cursor IDE:
 
 Create `~/.config/opencode/entire-check.json` or `~/.claude/entire-check.json`:
 
@@ -327,16 +378,42 @@ All systems operational.
 
 ## Platform Support
 
-| Platform | OpenCode Install | Claude Code Install | Claude Code Wrapper | Entire CLI |
-|----------|------------------|---------------------|-------------------|------------|
-| macOS | ✅ One-command install | ✅ One-command install | ✅ Script + alias | ✅ Homebrew |
-| Linux | ✅ One-command install | ✅ One-command install | ✅ Script + alias | ✅ Binary releases |
+| Platform | OpenCode Install | Claude Code Install | Claude Code MCP UI | Claude Code Wrapper | Entire CLI |
+|----------|------------------|---------------------|-----------------|------------------|------------------|
+| macOS | ✅ One-command install | ✅ One-command install | ✅ Built-in MCP | ✅ Script + alias | ✅ Homebrew |
+| Linux | ✅ One-command install | ✅ One-command install | ✅ Built-in MCP | ✅ Script + alias | ✅ Binary releases |
 | Windows | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon | ⚠️ Manual install |
 | WSL | ✅ Use Linux script | ✅ Use Linux script | ✅ Script + alias | ✅ Binary releases |
 
 ## Architecture
 
 **OpenCode Plugin:**
+```
+Session Start
+    │
+    ├──► Entire Check Plugin ──► Verify memory stack health
+    │       ├──► Entire enabled? ──► ✅ Continue / ⚠️ Prompt user
+    │       ├──► Claude-Mem active? ──► ✅ Continue / ❌ Warn
+    │       └──► RTK installed? ──► ✅ Continue / ❌ Note
+```
+
+**Claude Code MCP Server:**
+```
+Claude Code
+    │
+    └──► MCP Server (auto-entire) ──► Provides tools
+        ├──► check_memory_stack
+        └──► enable_entire
+```
+
+**Cursor IDE MCP Client:**
+```
+Cursor IDE
+    │
+    └──► MCP Client ──► Auto-discovers MCP servers
+            └──► Auto-invokes tools when helpful
+                ├──► check_memory_stack
+                └──► enable_entire
 ```
 Session Start
     │
@@ -359,11 +436,10 @@ Claude Code
 
 ## Requirements
 
-- **OpenCode** with plugin support OR **Claude Code** with MCP support
+- **OpenCode** with plugin support OR **Claude Code** with MCP support OR **Cursor IDE** with native MCP support
 - Node.js 18+ and npm
 - Git (for repository detection)
 - Optional: Entire CLI (will be prompted to install if missing)
-- Optional: @modelcontextprotocol/sdk (for Claude Code)
 
 ## Troubleshooting
 
