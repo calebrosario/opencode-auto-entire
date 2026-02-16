@@ -4,8 +4,9 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![OpenCode](https://img.shields.io/badge/OpenCode-plugin-orange.svg)](https://opencode.ai)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-MCP%20Server-blue.svg)](https://docs.anthropic.com)
+[![Codex CLI](https://img.shields.io/badge/Codex%20CLI-Skill%20%26%20MCP-green.svg)](https://developers.openai.com/codex)
 
-> 🧠 Automatic Entire CLI monitoring for OpenCode & Claude Code - Never lose session context again
+> 🧠 Automatic Entire CLI monitoring for OpenCode, Claude Code & Codex - Never lose session context again
 
 OpenCode Auto-Entire is a plugin and MCP server that automatically checks if [Entire CLI](https://github.com/entireio/cli) is enabled when you start an AI coding session. If not, it prompts you with clear instructions to fix it. It also monitors your complete memory management stack including Claude-Mem and RTK.
 
@@ -21,7 +22,7 @@ With OpenCode Auto-Entire:
 - ✅ Prompts with actionable fix instructions
 - ✅ Monitors full memory stack (Entire + Claude-Mem + RTK)
 - ✅ Configurable behavior (prompt / auto-init / silent)
-- ✅ Works with **OpenCode** and **Claude Code**
+- ✅ Works with **OpenCode**, **Claude Code**, and **Codex**
 
 ## Quick Start
 
@@ -112,7 +113,68 @@ claude
 
 See [docs/CLAUDE_WRAPPER.md](docs/CLAUDE_WRAPPER.md) for full documentation.
 
-## Claude Code: Wrapper Script vs MCP Server
+### For Codex CLI
+
+Codex CLI supports **three integration methods**:
+
+**Option 1: Codex Skill (Recommended for Auto-Invoke)**
+```bash
+# Install skill globally
+mkdir -p ~/.agents/skills/
+cp -r .agents/skills/auto-entire ~/.agents/skills/
+```
+
+Codex auto-invokes the skill based on your prompts! Just start coding normally.
+
+**Option 2: MCP Server**
+```bash
+# Install for Codex
+mkdir -p ~/.codex/plugins/
+cp -r . ~/.codex/plugins/opencode-auto-entire
+cd ~/.codex/plugins/opencode-auto-entire
+npm install
+```
+
+Add to `~/.codex/config.toml`:
+```toml
+[mcp_servers.auto-entire]
+command = "node"
+args = ["/Users/YOUR_USERNAME/.codex/plugins/opencode-auto-entire/src/claude-code.ts"]
+```
+
+**Option 3: Wrapper Script (True Automatic)**
+```bash
+# Add alias to ~/.bashrc or ~/.zshrc
+alias codex='~/.codex/plugins/opencode-auto-entire/scripts/codex-wrapper.sh'
+
+# Reload shell
+source ~/.bashrc
+
+# Use codex normally - automatic checking!
+codex
+```
+
+See [Codex Setup Guide](docs/CODEX.md) for detailed instructions.
+
+## Platform Support Options
+
+| Platform | OpenCode | Claude Code | Cursor | Codex |
+|----------|-----------|-------------|----------|--------|
+| **macOS** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup | ✅ Skill + MCP |
+| **Linux** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup | ✅ Skill + MCP |
+| **Windows** | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon | ⚠️ WSL only |
+| **Setup** | `opencode.json` | `claude-code.example.json` | Settings → MCP | `codex.example.toml` |
+
+## Integration Comparison
+
+| Platform | Auto-Invoke Method | Lifecycle Events | Best For |
+|----------|-------------------|-----------------|-----------|
+| **OpenCode** | Plugin event hook | ✅ session.created | Automatic checking |
+| **Codex Skill** | Description matching | ❌ None | Prompt-based auto-invoke |
+| **Claude Code** | Manual tool invocation | ❌ None | On-demand tools |
+| **Cursor MCP** | Auto-invoke when helpful | ❌ None | Smart auto-invoke |
+
+## Claude Code & Codex: Wrapper Script vs MCP Server
 
 You have **two options** for using OpenCode Auto-Entire with Claude Code:
 
@@ -273,11 +335,17 @@ On every session start in a git repository:
 3. ✅ Provides same memory stack checking as OpenCode and Claude Code
 4. ✅ Zero setup complexity - just install and connect
 
+**Codex CLI:**
+1. ✅ Skill auto-invokes based on prompt matching
+2. ✅ MCP server provides on-demand tools
+3. ✅ Wrapper script provides true automatic checking
+4. ✅ Three flexible integration options
+
 ## Configuration
 
-Configuration works for both OpenCode, Claude Code, and Cursor IDE:
+Configuration works for OpenCode, Claude Code, Cursor IDE, and Codex CLI:
 
-Create `~/.config/opencode/entire-check.json` or `~/.claude/entire-check.json`:
+Create `~/.config/opencode/entire-check.json`, `~/.claude/entire-check.json`, or `~/.codex/entire-check.json`:
 
 ```json
 {
@@ -363,6 +431,46 @@ You can either:
 1. Enable manually: `entire enable --strategy auto-commit`
 2. Use the MCP tool: "Enable Entire with auto-entire"
 
+### For Codex CLI
+
+After installation, you have **three options**:
+
+**Option 1: Skill (Auto-Invoke)**
+Just start coding normally. Codex auto-invokes the skill when your prompt matches:
+```
+User: I need to work on the auth module
+Codex: [Auto-invokes auto-entire skill]
+🧠 Memory Stack Status
+
+✅ Entire CLI: Enabled
+✅ Claude-Mem: Active
+✅ RTK: Active (91.7% efficiency)
+
+All systems operational.
+
+Codex: Great! Let's work on the auth module...
+```
+
+**Option 2: MCP Server**
+Codex's agent automatically uses MCP tools when helpful:
+```
+User: Check my memory stack
+Codex: [Uses MCP tool]
+🧠 Memory Stack Status
+
+✅ Entire CLI: Enabled
+✅ Claude-Mem: Active
+✅ RTK: Active (89.3% efficiency)
+
+All systems operational.
+```
+
+**Option 3: Wrapper Script (Automatic)**
+If you set up the alias, memory stack checks run automatically:
+```bash
+codex  # Wrapper checks memory stack before launching
+```
+
 ### When Entire is Enabled
 
 You'll see:
@@ -378,12 +486,12 @@ All systems operational.
 
 ## Platform Support
 
-| Platform | OpenCode Install | Claude Code Install | Claude Code MCP UI | Claude Code Wrapper | Entire CLI |
-|----------|------------------|---------------------|-----------------|------------------|------------------|
-| macOS | ✅ One-command install | ✅ One-command install | ✅ Built-in MCP | ✅ Script + alias | ✅ Homebrew |
-| Linux | ✅ One-command install | ✅ One-command install | ✅ Built-in MCP | ✅ Script + alias | ✅ Binary releases |
-| Windows | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon | ⚠️ Manual install |
-| WSL | ✅ Use Linux script | ✅ Use Linux script | ✅ Script + alias | ✅ Binary releases |
+| Platform | OpenCode Install | Claude Code Install | Claude Code MCP UI | Claude Code Wrapper | Cursor | Codex | Entire CLI |
+|----------|------------------|---------------------|-----------------|------------------|--------|--------|------------------|
+| macOS | ✅ One-command install | ✅ One-command install | ✅ Built-in MCP | ✅ Script + alias | ✅ MCP UI | ✅ Skill + MCP | ✅ Homebrew |
+| Linux | ✅ One-command install | ✅ One-command install | ✅ Built-in MCP | ✅ Script + alias | ✅ MCP UI | ✅ Skill + MCP | ✅ Binary releases |
+| Windows | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon | ⚠️ Manual install | ❌ Coming soon | ⚠️ WSL only | ⚠️ WSL only |
+| WSL | ✅ Use Linux script | ✅ Use Linux script | ✅ Script + alias | ✅ Binary releases | ✅ MCP UI | ✅ Skill + MCP | ✅ Binary releases |
 
 ## Architecture
 
@@ -414,6 +522,33 @@ Cursor IDE
             └──► Auto-invokes tools when helpful
                 ├──► check_memory_stack
                 └──► enable_entire
+```
+
+**Codex CLI Skill:**
+```
+Codex CLI
+    │
+    └──► Skill System ──► Auto-invokes based on prompt matching
+            └──► auto-entire skill
+                ├──► Check memory on prompt match
+                └──► Auto-initialize Entire (optional)
+```
+
+**Codex CLI MCP Server:**
+```
+Codex CLI
+    │
+    └──► MCP Server (auto-entire) ──► Provides tools
+            ├──► check_memory_stack ──► Check status
+            └──► enable_entire ──► Auto-initialize
+```
+
+**Codex CLI Wrapper (Automatic):**
+```
+codex command
+    │
+    └──► Wrapper script ──► Run check BEFORE launching Codex
+            └──► Display memory stack status
 ```
 Session Start
     │
