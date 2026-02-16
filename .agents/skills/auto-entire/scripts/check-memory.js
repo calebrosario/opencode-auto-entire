@@ -11,7 +11,6 @@ import { dirname, join } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-// Import core module (relative to plugin root)
 const coreModulePath = join(__dirname, '..', '..', 'core', 'entire-check.ts')
 
 async function checkMemoryStack() {
