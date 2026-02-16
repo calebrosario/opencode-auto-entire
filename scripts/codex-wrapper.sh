@@ -15,8 +15,14 @@ if [ -f "$CHECK_SCRIPT" ]; then
     # Check failed (Entire not enabled)
     echo ""
     echo "⚠️  Memory stack check failed. Please fix the issues above before continuing."
-    echo "Press Enter to continue anyway, or Ctrl+C to cancel..."
-    read
+
+    if [ -t 0 ]; then
+      echo "Press Enter to continue anyway, or Ctrl+C to cancel..."
+      read -t 30
+    else
+      echo "Non-interactive mode - continuing in 3 seconds..."
+      sleep 3
+    fi
   fi
 else
   echo "Warning: Check script not found at $CHECK_SCRIPT"
