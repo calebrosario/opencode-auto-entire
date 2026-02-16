@@ -7,7 +7,7 @@
 [![Codex CLI](https://img.shields.io/badge/Codex%20CLI-Skill%20%26%20MCP-green.svg)](https://developers.openai.com/codex)
 [![Cursor IDE](https://img.shields.io/badge/Cursor%20IDE-MCP-purple.svg)](https://cursor.sh)
 
-> 🧠 Automatic Entire CLI monitoring for OpenCode, Claude Code, Cursor & Codex - Never lose session context again
+> 🧠 Automatic Entire CLI monitoring for OpenCode, Claude Code, Cursor, and Codex - Never lose session context again
 
 OpenCode Auto-Entire is a plugin and MCP server that automatically checks if [Entire CLI](https://github.com/entireio/cli) is enabled when you start an AI coding session. If not, it prompts you with clear instructions to fix it. It also monitors your complete memory management stack including Claude-Mem and RTK.
 
@@ -155,7 +155,7 @@ source ~/.bashrc
 codex
 ```
 
-See [Codex Setup Guide](docs/CODEX.md) for detailed instructions.
+See [Codex Setup Guide](docs/CODEX.md) for detailed usage instructions.
 
 ## Platform Support Options
 
@@ -575,7 +575,9 @@ Claude Code
 - **OpenCode** with plugin support OR **Claude Code** with MCP support OR **Cursor IDE** with native MCP support
 - Node.js 18+ and npm
 - Git (for repository detection)
-- Optional: Entire CLI (will be prompted to install if missing)
+- **Required:** [Entire CLI](https://github.com/entireio/cli) (session persistence and checkpoint recovery)
+- **Optional:** [Claude-Mem](https://github.com/thedotmack/claude-mem) (cross-session memory for context persistence)
+- **Optional:** [RTK](https://github.com/rtk-ai/rtk) (token optimization for 60-90% savings)
 
 ## Troubleshooting
 
