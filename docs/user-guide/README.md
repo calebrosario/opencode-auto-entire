@@ -27,6 +27,47 @@ The plugin checks your memory stack:
 - Only in git repositories (configurable)
 - Before any work begins
 
+### For Codex CLI
+
+You have **three approaches** for using OpenCode Auto-Entire with Codex CLI:
+
+#### Approach 1: Codex Skill (Auto-Invoke)
+
+The Codex Skill uses description-based auto-invocation:
+
+- ✅ Auto-invokes when prompt matches description
+- ✅ No configuration needed
+- ✅ Works in any repository
+- ✅ Closest to OpenCode automatic checking
+
+**Usage:** Just start coding normally. Codex auto-invokes based on your prompt!
+
+#### Approach 2: MCP Server
+
+The MCP server provides on-demand tools:
+
+- ✅ Check memory stack anytime
+- ✅ Enable Entire automatically
+- ✅ Configured in `~/.codex/config.toml`
+
+#### Approach 3: Wrapper Script (True Automatic)
+
+The wrapper script runs checks before launching Codex:
+
+- ✅ Checks before every launch
+- ✅ Requires alias setup
+- ✅ Same as OpenCode behavior
+
+#### Which Should You Use?
+
+| Need | Use |
+|-------|------|
+| Auto-invocation based on prompts | **Codex Skill** |
+| On-demand tools during conversations | **MCP Server** |
+| True automatic checking on launch | **Wrapper Script** |
+
+**Recommendation:** Use **Codex Skill** for auto-invocation, keep **MCP server** for on-demand tools, and use **wrapper script** for true automatic checking.
+
 ### For Claude Code
 
 You have **two approaches** for using OpenCode Auto-Entire with Claude Code:
@@ -118,9 +159,22 @@ The plugin provides clear status indicators:
 
 **Key Difference**: Cursor's agent automatically uses MCP tools when helpful - no manual invocation needed!
 
+### Codex CLI
+
+| Scenario | Action |
+|----------|--------|
+| Skill not auto-invoking | Check skill is in scanned location: `.agents/skills/` or `~/.agents/skills/` |
+| Prompt not triggering skill | Rephrase prompt to match skill description: "Start coding on X" vs just "Do X" |
+| MCP server not found | Check `~/.codex/config.toml` configuration |
+| Wrapper not working | Verify alias: `alias codex` |
+| Check memory stack | Codex auto-invokes skill or run manually: `$auto-entire` |
+
+**Key Feature**: Codex Skills auto-invoke based on prompt matching!
+
 ## Next Steps
 
 - Configure plugin: [Configuration](configuration.md)
 - Learn about modes: [Modes](modes.md)
 - Solve issues: [Troubleshooting](troubleshooting.md)
 - Choose Claude Code approach: [Wrapper Script](../CLAUDE_WRAPPER.md) or [MCP Server](../CLAUDE_CODE.md)
+- Choose Codex approach: [Codex Setup](../CODEX.md) or [Codex Skill](../CODEX_SKILL.md)

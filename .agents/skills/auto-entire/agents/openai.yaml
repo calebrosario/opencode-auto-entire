@@ -1,0 +1,8 @@
+interface:
+  display_name: "Auto-Entire"
+  short_description: "Memory stack checker (Entire, Claude-Mem, RTK)"
+  icon_small: "./assets/small-logo.svg"
+  brand_color: "#3B82F6"
+
+policy:
+  allow_implicit_invocation: true

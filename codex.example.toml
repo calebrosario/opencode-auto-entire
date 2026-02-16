@@ -1,0 +1,31 @@
+# Codex Configuration Example
+# Add this to ~/.codex/config.toml to enable Auto-Entire MCP server
+
+[mcp_servers.auto-entire]
+command = "node"
+args = ["/Users/YOUR_USERNAME/.codex/plugins/opencode-auto-entire/src/claude-code.ts"]
+# Optional: Set environment variables
+# env = { "NODE_ENV" = "production" }
+# Optional: Working directory
+# cwd = "/path/to/project"
+# Optional: Startup timeout (seconds, default: 10)
+# startup_timeout_sec = 20
+# Optional: Tool timeout (seconds, default: 60)
+# tool_timeout_sec = 45
+
+# Enable specific tools only (optional)
+# enabled_tools = ["check_memory_stack", "enable_entire"]
+
+# Disable specific tools (applied after enabled_tools)
+# disabled_tools = []
+
+# Mark server as required (fail startup if can't initialize)
+# required = false
+
+# Disable server without removing configuration
+# enabled = true
+
+# Optional: Set default profile
+# [profiles.auto-entire]
+# model = "gpt-5-codex"
+# approval_policy = "on-request"

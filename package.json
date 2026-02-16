@@ -1,7 +1,7 @@
 {
   "name": "opencode-auto-entire",
   "version": "1.0.0",
-  "description": "OpenCode plugin and Claude Code MCP server for automatic Entire CLI monitoring - Never lose session context again",
+  "description": "OpenCode plugin, Claude Code MCP server, and Codex CLI skill for automatic Entire CLI monitoring - Never lose session context again",
   "type": "module",
   "main": "src/opencode/plugin.ts",
   "bin": {
@@ -19,8 +19,12 @@
   "keywords": [
     "opencode",
     "claude-code",
+    "codex-cli",
+    "codex",
+    "openai-codex",
     "plugin",
     "mcp-server",
+    "codex-skill",
     "entire",
     "session-persistence",
     "memory-management",

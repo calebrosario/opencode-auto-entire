@@ -4,8 +4,9 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![OpenCode](https://img.shields.io/badge/OpenCode-plugin-orange.svg)](https://opencode.ai)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-MCP%20Server-blue.svg)](https://docs.anthropic.com)
+[![Codex CLI](https://img.shields.io/badge/Codex%20CLI-Skill%20%26%20MCP-green.svg)](https://developers.openai.com/codex)
 
-> 🧠 Automatic Entire CLI monitoring for OpenCode & Claude Code - Never lose session context again
+> 🧠 Automatic Entire CLI monitoring for OpenCode, Claude Code & Codex - Never lose session context again
 
 OpenCode Auto-Entire is a plugin and MCP server that automatically checks if [Entire CLI](https://github.com/entireio/cli) is enabled when you start an AI coding session. If not, it prompts you with clear instructions to fix it. It also monitors your complete memory management stack including Claude-Mem and RTK.
 
@@ -21,7 +22,7 @@ With OpenCode Auto-Entire:
 - ✅ Prompts with actionable fix instructions
 - ✅ Monitors full memory stack (Entire + Claude-Mem + RTK)
 - ✅ Configurable behavior (prompt / auto-init / silent)
-- ✅ Works with **OpenCode** and **Claude Code**
+- ✅ Works with **OpenCode**, **Claude Code**, and **Codex**
 
 ## What It Does
 
@@ -75,6 +76,8 @@ See [Quick Start Guide](getting-started/quickstart.md) for detailed installation
 - **[Claude Code Setup](CLAUDE_CODE.md)** - Claude Code MCP server configuration and usage
 - **[Claude Code Wrapper](CLAUDE_WRAPPER.md)** - Wrapper script for automatic memory stack checking
 - **[Cursor Setup](CURSOR.md)** - Cursor IDE MCP integration
+- **[Codex Setup](CODEX.md)** - Codex CLI integration (MCP server + Skill + wrapper)
+- **[Codex Skill](CODEX_SKILL.md)** - Codex Skill auto-invocation documentation
 - **[User Guide](user-guide/README.md)** - Configuration options, usage patterns, troubleshooting
 - **[Integration](integration/README.md)** - Architecture, and platform support
 - **[Development](development/README.md)** - Contributing guidelines and changelog
@@ -103,11 +106,11 @@ This plugin monitors three critical components of AI-assisted development:
 
 ## Requirements
 
-- **OpenCode** with plugin support OR **Claude Code** with MCP support
+- **OpenCode** with plugin support OR **Claude Code** with MCP support OR **Codex CLI** with MCP/Skills support
 - Node.js 18+ and npm
 - Git (for repository detection)
 - Optional: Entire CLI (will be prompted to install if missing)
-- Optional: @modelcontextprotocol/sdk (for Claude Code)
+- Optional: @modelcontextprotocol/sdk (for Claude Code/Codex MCP)
 
 ## Related Projects
 

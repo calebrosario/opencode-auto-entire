@@ -14,12 +14,12 @@ Choose the installation method that works best for your platform and preferred A
 
 Choose your AI coding tool:
 
-| Platform | OpenCode | Claude Code | Cursor |
-|----------|-----------|-------------|----------|
-| **macOS** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup |
-| **Linux** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup |
-| **Windows** | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon |
-| **Setup** | `opencode.json` | `claude-code.example.json` | Settings → MCP |
+| Platform | OpenCode | Claude Code | Cursor | Codex |
+|----------|-----------|-------------|----------|--------|
+| **macOS** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup | ✅ Skill + MCP |
+| **Linux** | ✅ One-command install | ✅ One-command install | ✅ MCP UI setup | ✅ Skill + MCP |
+| **Windows** | ✅ PowerShell script | ❌ Coming soon | ❌ Coming soon | ⚠️ WSL only |
+| **Setup** | `opencode.json` | `claude-code.example.json` | Settings → MCP | `codex.example.toml` |
 
 ### For OpenCode
 
@@ -32,6 +32,56 @@ See "Quick Start" section above.
 ### For Cursor IDE
 
 Cursor IDE has **native MCP support** - no configuration files needed!
+
+### For Codex CLI
+
+Codex CLI supports **three integration methods**:
+
+**Option 1: Codex Skill (Recommended for Auto-Invoke)**
+- Auto-invokes based on prompt matching
+- Works in any git repository
+- No configuration needed
+
+```bash
+# Install skill globally
+mkdir -p ~/.agents/skills/
+cp -r .agents/skills/auto-entire ~/.agents/skills/
+```
+
+**Option 2: MCP Server**
+- Provides on-demand tools
+- Configured in `~/.codex/config.toml`
+- Manual or auto-invoke
+
+```bash
+# Install for Codex
+mkdir -p ~/.codex/plugins/
+cp -r . ~/.codex/plugins/opencode-auto-entire
+cd ~/.codex/plugins/opencode-auto-entire
+npm install
+```
+
+Then add to `~/.codex/config.toml`:
+```toml
+[mcp_servers.auto-entire]
+command = "node"
+args = ["/Users/YOUR_USERNAME/.codex/plugins/opencode-auto-entire/src/claude-code.ts"]
+```
+
+**Option 3: Wrapper Script (True Automatic)**
+- Runs checks before launching Codex
+- Requires alias setup
+- Same as OpenCode behavior
+
+```bash
+# Add alias to ~/.bashrc or ~/.zshrc
+alias codex='~/.codex/plugins/opencode-auto-entire/scripts/codex-wrapper.sh'
+
+# Reload shell
+source ~/.bashrc
+```
+
+See [Codex Setup Guide](../CODEX.md) for detailed instructions.
 
 1. **Install OpenCode Auto-Entire**:
    ```bash
@@ -94,6 +144,7 @@ Before installing, make sure you have:
   - Entire CLI (will be prompted to install during setup)
 
 - **For Cursor**: Nothing extra needed - Cursor handles MCP automatically!
+- **For Codex**: Install skill or MCP server - auto-invokes based on prompts
 
 ## Next Steps
 
