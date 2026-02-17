@@ -27,3 +27,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Configurable**: JSON configuration file support
 
 [1.0.0]: https://github.com/yourusername/opencode-auto-entire/releases/tag/v1.0.0
+
+## [1.0.1] - 2026-02-17
+
+### Fixes
+- Fixed grammar in subtitle (changed "&" to "and")
+- Added "usage" to Codex setup guide link for clarity
+
+### Documentation
+- Clarified Requirements section to distinguish required vs optional tools
+- Added GitHub links to Entire CLI, Claude-Mem, and RTK
+- Removed all references to non-existent GitHub Copilot documentation
+- Updated Platform Support Options table (removed VS Code)
+- Updated Integration Comparison table (removed GitHub Copilot)
+- Fixed duplicate/confusing recommendation sections
